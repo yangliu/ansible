@@ -1,0 +1,20 @@
+---
+- name: Set authorized key for hosts with root login
+  hosts: all:!pi0_studio
+
+  tasks:
+  - name: Add authorized key from ansible_id_rsa.pub
+    ansible.posix.authorized_key:
+      user: root
+      state: present
+      key: "{{ lookup('file', '/Users/yangliu/scripts/github/ansible/keys/ansible_id_rsa.pub') }}"
+
+- name: Set authorized key for pi0_studio
+  hosts: pi0_studio
+
+  tasks:
+  - name: Add authorized key from ansible_id_rsa.pub
+    ansible.posix.authorized_key:
+      user: yangliu
+      state: present
+      key: "{{ lookup('file', '/Users/yangliu/scripts/github/ansible/keys/ansible_id_rsa.pub') }}"
