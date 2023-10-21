@@ -1,0 +1,24 @@
+---
+- name: Update Alpine Hosts
+  hosts: alpine
+  become: yes
+
+  tasks:
+  - name: Update all packages
+    community.general.apk:
+      update_cache: true
+      upgrade: true
+
+- name: Update Debian Hosts
+  hosts: debian
+  become: yes
+
+  tasks:
+  - name: Update all packages
+    ansible.builtin.apt:
+      update_cache: yes
+      name: "*"
+      state: latest
+  - name: Remove dependencies that are no longer required
+    ansible.builtin.apt:
+      autoremove: yes

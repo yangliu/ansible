@@ -1,0 +1,9 @@
+---
+- name: Install python on Alpine Linux
+  hosts: alpine
+  gather_facts: False
+  remote_user: root
+  
+  tasks:
+  - name: Install Python
+    ansible.builtin.raw: apk add python3
