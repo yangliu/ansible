@@ -1,0 +1,11 @@
+---
+- name: Remove unused docker images from the host
+  hosts: docker_hosts
+  become: true
+
+  tasks:
+  - name: Pruge unused docker images
+    community.docker.docker_prune:
+      images: true
+      images_filters:
+        dangling: false
