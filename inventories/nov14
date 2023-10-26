@@ -1,0 +1,50 @@
+iptv ansible_host=192.168.0.7 ansible_ssh_user=root
+nodered ansible_host=192.168.0.33 ansible_ssh_user=root
+bt ansible_host=192.168.0.38 ansible_ssh_user=root
+pi0_studio ansible_host=192.168.0.32 ansible_ssh_user=yangliu
+
+[dns_servers]
+dns1 ansible_host=192.168.0.4
+dns2 ansible_host=192.168.0.6
+
+[clash_meta]
+cg63 ansible_host=192.168.0.63
+cg64 ansible_host=192.168.0.64
+
+[caddy]
+caddy1 ansible_host=192.168.0.81
+caddy2 ansible_host=192.168.0.82
+
+[alpine:children]
+dns_servers
+clash_meta
+caddy
+
+[alpine:vars]
+ansible_ssh_user=root
+ansible_python_interpreter=auto_silent
+
+
+[pve_hosts]
+aio ansible_host=192.168.0.2 ansible_become_method=runas ansible_become_user=root
+n3700 ansible_host=192.168.0.8 ansible_become_method=runas ansible_become_user=root
+
+[cf_tunnels]
+cf_tunnel1 ansible_host=192.168.0.48 ansible_become_method=runas ansible_become_user=root
+cf_tunnel2 ansible_host=192.168.0.49 ansible_become_method=runas ansible_become_user=root
+
+[docker_hosts]
+docker_core ansible_host=192.168.0.36
+docker_apps ansible_host=192.168.0.34 ansible_become_method=runas ansible_become_user=root
+docker_scrypted ansible_host=192.168.0.35 ansible_become_method=runas ansible_become_user=root
+
+[debian]
+iptv
+nodered
+pi0_studio
+bt
+
+[debian:children]
+pve_hosts
+cf_tunnels
+docker_hosts

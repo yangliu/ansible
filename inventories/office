@@ -1,0 +1,25 @@
+pve ansible_host=192.168.111.10 ansible_ssh_user=root
+omv ansible_host=192.168.111.20 ansible_ssh_user=root
+dns_office ansible_host=192.168.111.6 ansible_ssh_user=root
+clash_office ansible_host=192.168.111.111 ansible_ssh_user=root
+pi2 ansible_host=192.168.111.3 ansible_ssh_user=root
+
+[alpine]
+dns_office
+clash_office
+pi2
+
+[alpine:vars]
+ansible_ssh_user=root
+ansible_python_interpreter=auto_silent
+
+[debian]
+pve
+omv
+
+[debian:vars]
+ansible_become_method=runas
+ansible_become_user=root
+
+[pve_hosts]
+pve
